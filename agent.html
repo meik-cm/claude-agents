@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Agent · Claude Agents</title>
-<meta name="description" content="A Claude Code subagent from the Claude Agents collection.">
+<title>Agent · Customize Agents</title>
+<meta name="description" content="A Claude Code subagent from the Customize Agents collection.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@500&display=swap" rel="stylesheet">
@@ -15,7 +15,7 @@
 
 <header class="topbar">
   <nav class="wrap topbar-inner" aria-label="Main">
-    <a class="brand" href="./"><span class="brand-mark" aria-hidden="true">◆</span> Claude Agents</a>
+    <a class="brand" href="./"><span class="brand-mark" aria-hidden="true">◆</span> Customize Agents</a>
     <ul class="nav-links">
       <li><a href="index.html#agents">Agents</a></li>
       <li><a href="index.html#install">Install</a></li>
@@ -48,7 +48,7 @@
 
 <footer class="site-footer">
   <div class="wrap footer-inner">
-    <span>Claude Agents</span>
+    <span>Customize Agents</span>
     <nav aria-label="Footer">
       <a href="index.html#agents">All agents</a>
       <a href="agentic-ai-pitch/">Agentic AI pitch</a>
@@ -87,7 +87,7 @@
       document.getElementById("agent-title").textContent = name;
       document.getElementById("agent-emoji").textContent = field("emoji") || "";
       document.getElementById("agent-vibe").textContent = field("vibe") || field("description") || "";
-      document.title = `${name} · Claude Agents`;
+      document.title = `${name} · Customize Agents`;
       if (fm) md = md.slice(fm[0].length);
       content.innerHTML = marked.parse(md);
       content.querySelectorAll("table").forEach(t => {
