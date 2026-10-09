@@ -20,14 +20,14 @@ jobs:
         uses: actions/checkout@v7
 
       - name: HTML validation (html-validate)
-        run: npx --yes html-validate@11 agentic-ai-pitch/index.html
+        run: npx --yes html-validate@11 index.html agent.html agentic-ai-pitch/index.html
 
       - name: Link check (internal anchors + external links)
         uses: lycheeverse/lychee-action@v2
         with:
           # Pinned so lychee.toml syntax (include_fragments = "full") stays compatible.
           lycheeVersion: v0.24.2
-          args: --config lychee.toml --no-progress agentic-ai-pitch/index.html
+          args: --config lychee.toml --no-progress index.html agent.html agentic-ai-pitch/index.html
           fail: true
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

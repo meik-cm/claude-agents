@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Agent · Claude Agents</title>
+<meta name="description" content="A Claude Code subagent from the Claude Agents collection.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="site.css">
+</head>
+<body>
+<a class="skip" href="#content">Skip to content</a>
+
+<header class="topbar">
+  <nav class="wrap topbar-inner" aria-label="Main">
+    <a class="brand" href="./"><span class="brand-mark" aria-hidden="true">◆</span> Claude Agents</a>
+    <ul class="nav-links">
+      <li><a href="index.html#agents">Agents</a></li>
+      <li><a href="index.html#install">Install</a></li>
+      <li><a class="nav-cta" href="agentic-ai-pitch/">Agentic AI pitch <span aria-hidden="true">→</span></a></li>
+    </ul>
+  </nav>
+</header>
+
+<main>
+  <section class="hero hero-compact" aria-labelledby="agent-name">
+    <div class="wrap hero-inner">
+      <p class="eyebrow"><a href="index.html#agents">← All agents</a></p>
+      <h1 id="agent-name"><span id="agent-emoji" aria-hidden="true"></span> <span id="agent-title">Loading…</span></h1>
+      <p class="hero-lead" id="agent-vibe"></p>
+      <div class="hero-actions">
+        <a class="btn btn-primary" id="download" href="./" download>Download agent file</a>
+        <button class="btn btn-ghost" id="copy" type="button">Copy install command</button>
+      </div>
+    </div>
+  </section>
+
+  <section class="wrap install" aria-labelledby="install-title">
+    <h2 id="install-title">Install</h2>
+    <p>Save the agent into your user-level agents folder so it's available in every project:</p>
+    <div class="cmd"><pre id="cmd"></pre></div>
+  </section>
+
+  <article id="content" class="wrap prose"><p>Loading…</p></article>
+</main>
+
+<footer class="site-footer">
+  <div class="wrap footer-inner">
+    <span>Claude Agents</span>
+    <nav aria-label="Footer">
+      <a href="index.html#agents">All agents</a>
+      <a href="agentic-ai-pitch/">Agentic AI pitch</a>
+      <a href="https://github.com/meik-cm/claude-agents">GitHub</a>
+    </nav>
+  </div>
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/marked/12.0.2/marked.min.js"></script>
+<script>
+  const slug = new URLSearchParams(location.search).get("a") || "";
+  const content = document.getElementById("content");
+  const fail = msg => {
+    document.getElementById("agent-title").textContent = "Agent not found";
+    content.innerHTML = `<p class="err">${msg} <a href="index.html#agents">Back to all agents</a>.</p>`;
+  };
+
+  if (!/^[a-z0-9-]+$/.test(slug)) {
+    fail("No agent selected.");
+  } else {
+    const FILE = `.claude/agents/${slug}.md`;
+    const fileUrl = new URL(FILE, location.href).href;
+    const cmd = `mkdir -p ~/.claude/agents && curl -fsSL ${fileUrl} -o ~/.claude/agents/${slug}.md`;
+    document.getElementById("cmd").textContent = cmd;
+    document.getElementById("download").href = FILE;
+    document.getElementById("copy").addEventListener("click", async e => {
+      try { await navigator.clipboard.writeText(cmd); e.target.textContent = "Copied!"; }
+      catch { e.target.textContent = "Copy failed"; }
+      setTimeout(() => (e.target.textContent = "Copy install command"), 1500);
+    });
+
+    fetch(FILE).then(r => { if (!r.ok) throw new Error(r.status); return r.text(); }).then(md => {
+      const fm = md.match(/^---\n([\s\S]*?)\n---\n/);
+      const field = k => fm && (fm[1].match(new RegExp(`^${k}:\\s*(.+)$`, "m")) || [])[1];
+      const name = field("name") || slug;
+      document.getElementById("agent-title").textContent = name;
+      document.getElementById("agent-emoji").textContent = field("emoji") || "";
+      document.getElementById("agent-vibe").textContent = field("vibe") || field("description") || "";
+      document.title = `${name} · Claude Agents`;
+      if (fm) md = md.slice(fm[0].length);
+      content.innerHTML = marked.parse(md);
+      content.querySelectorAll("table").forEach(t => {
+        const w = document.createElement("div"); w.className = "table-wrap";
+        t.replaceWith(w); w.appendChild(t);
+      });
+    }).catch(err => fail(`Couldn't load the agent file (${err.message}).`));
+  }
+</script>
+</body>
+</html>

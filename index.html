@@ -3,103 +3,185 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Proposal Strategist</title>
-<meta name="description" content="A Claude Code subagent that turns RFPs into win narratives.">
+<title>Claude Agents</title>
+<meta name="description" content="Thirteen Claude Code subagents for design, engineering and sales. Browse each agent, download its file, or install the whole set with one command.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
-<style>
-  :root {
-    --bg: #f8fafc; --surface: #ffffff; --text: #0f172a; --muted: #475569;
-    --border: #e2e8f0; --accent: #2563eb; --accent-soft: #dbeafe; --code-bg: #f1f5f9;
-  }
-  @media (prefers-color-scheme: dark) {
-    :root { --bg: #0b1120; --surface: #111827; --text: #e5e7eb; --muted: #94a3b8;
-      --border: #1f2937; --accent: #60a5fa; --accent-soft: #1e3a5f; --code-bg: #0f172a; }
-  }
-  * { box-sizing: border-box; }
-  body { margin: 0; background: var(--bg); color: var(--text);
-    font: 16px/1.65 Inter, system-ui, -apple-system, sans-serif; }
-  .wrap { max-width: 820px; margin: 0 auto; padding: 0 16px; }
-  header { padding: 56px 0 32px; border-bottom: 1px solid var(--border); }
-  .badge { display: inline-block; font-size: 13px; font-weight: 600; color: var(--accent);
-    background: var(--accent-soft); padding: 4px 10px; border-radius: 999px; }
-  h1.title { font-size: clamp(32px, 6vw, 44px); line-height: 1.15; margin: 16px 0 8px; }
-  .vibe { font-size: 19px; color: var(--muted); margin: 0 0 24px; }
-  .actions { display: flex; gap: 12px; flex-wrap: wrap; }
-  .btn { font: inherit; font-size: 15px; font-weight: 600; padding: 10px 16px; border-radius: 8px;
-    border: 1px solid var(--border); background: var(--surface); color: var(--text);
-    text-decoration: none; cursor: pointer; }
-  .btn.primary { background: var(--accent); border-color: var(--accent); color: #fff; }
-  section.install { margin: 32px 0; padding: 20px; background: var(--surface);
-    border: 1px solid var(--border); border-radius: 12px; }
-  section.install h2 { margin: 0 0 8px; font-size: 18px; }
-  section.install p { margin: 0 0 12px; color: var(--muted); }
-  pre, code { font-family: "JetBrains Mono", ui-monospace, monospace; font-size: 13.5px; }
-  pre { background: var(--code-bg); border: 1px solid var(--border); border-radius: 8px;
-    padding: 14px; overflow-x: auto; margin: 0; }
-  :not(pre) > code { background: var(--code-bg); padding: 2px 5px; border-radius: 4px; }
-  article { padding-bottom: 64px; }
-  article h1 { display: none; }
-  article h2 { margin-top: 40px; padding-top: 16px; border-top: 1px solid var(--border); font-size: 24px; }
-  article h3 { margin-top: 28px; font-size: 18px; }
-  article pre { margin: 12px 0; }
-  .table-wrap { overflow-x: auto; }
-  article table { border-collapse: collapse; width: 100%; font-size: 14px; }
-  article th, article td { border: 1px solid var(--border); padding: 6px 10px; text-align: left; }
-  article hr { border: 0; border-top: 1px solid var(--border); margin: 32px 0; }
-  a { color: var(--accent); }
-  .err { color: #dc2626; }
-</style>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="site.css">
 </head>
 <body>
-<div class="wrap">
-  <header>
-    <span class="badge">🏹 Claude Code subagent</span>
-    <h1 class="title">Proposal Strategist</h1>
-    <p class="vibe" id="vibe">Turns RFP responses into stories buyers can't put down.</p>
-    <div class="actions">
-      <a class="btn primary" id="download" href=".claude/agents/sales-proposal-strategist.md" download>Download agent file</a>
-      <button class="btn" id="copy" type="button">Copy install command</button>
-    </div>
-  </header>
+<a class="skip" href="#agents">Skip to agents</a>
 
-  <section class="install">
-    <h2>Install</h2>
-    <p>Save the agent into your user-level agents folder so it's available in every project:</p>
-    <pre id="cmd"></pre>
+<header class="topbar">
+  <nav class="wrap topbar-inner" aria-label="Main">
+    <a class="brand" href="./" aria-current="page"><span class="brand-mark" aria-hidden="true">◆</span> Claude Agents</a>
+    <ul class="nav-links">
+      <li><a href="#agents">Agents</a></li>
+      <li><a href="#install">Install</a></li>
+      <li><a class="nav-cta" href="agentic-ai-pitch/">Agentic AI pitch <span aria-hidden="true">→</span></a></li>
+    </ul>
+  </nav>
+</header>
+
+<main>
+  <section class="hero" aria-labelledby="hero-title">
+    <div class="wrap hero-inner">
+      <p class="eyebrow">Claude Code subagents · 13 agents</p>
+      <h1 id="hero-title">A specialist team <em>for every part of the job.</em></h1>
+      <p class="hero-lead">Design, engineering and sales experts you can drop into Claude Code. Each agent is one Markdown file: read it, download it, or install the whole set with one command.</p>
+      <div class="hero-actions">
+        <a class="btn btn-primary" href="#agents">Browse the agents</a>
+        <a class="btn btn-ghost" href="agentic-ai-pitch/">See the Agentic AI pitch <span aria-hidden="true">→</span></a>
+      </div>
+      <dl class="stats">
+        <div><dt>Design</dt><dd>10</dd></div>
+        <div><dt>Engineering</dt><dd>2</dd></div>
+        <div><dt>Sales</dt><dd>1</dd></div>
+      </dl>
+    </div>
   </section>
 
-  <article id="content"><p>Loading…</p></article>
-</div>
+  <section class="wrap feature" aria-labelledby="feature-title">
+    <a class="feature-card" href="agentic-ai-pitch/">
+      <span class="feature-tag">Featured</span>
+      <h2 id="feature-title">Agentic AI Agents: Finished Work, Under Your Rules</h2>
+      <p>The client-facing pitch: what agentic AI agents do, how they differ from chatbots and RPA, and the 30-day pilot.</p>
+      <span class="feature-link">Open the pitch <span aria-hidden="true">→</span></span>
+    </a>
+  </section>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/marked/12.0.2/marked.min.js"></script>
+  <section id="agents" class="wrap agents" aria-labelledby="agents-title">
+    <div class="section-head">
+      <h2 id="agents-title">The agents</h2>
+      <div class="filters" role="group" aria-label="Filter by team">
+        <button type="button" class="chip" data-filter="all" aria-pressed="true">All</button>
+        <button type="button" class="chip" data-filter="design" aria-pressed="false">Design</button>
+        <button type="button" class="chip" data-filter="engineering" aria-pressed="false">Engineering</button>
+        <button type="button" class="chip" data-filter="sales" aria-pressed="false">Sales</button>
+      </div>
+    </div>
+
+    <ul class="grid">
+      <li class="card" data-team="sales">
+        <div class="card-top"><span class="emoji" aria-hidden="true">🏹</span><span class="team">Sales</span></div>
+        <h3><a href="agent.html?a=sales-proposal-strategist">Proposal Strategist</a></h3>
+        <p>Turns RFP responses into stories buyers can't put down.</p>
+        <a class="dl" href=".claude/agents/sales-proposal-strategist.md" download>Download .md</a>
+      </li>
+      <li class="card" data-team="engineering">
+        <div class="card-top"><span class="emoji" aria-hidden="true">🏛️</span><span class="team">Engineering</span></div>
+        <h3><a href="agent.html?a=engineering-software-architect">Software Architect</a></h3>
+        <p>Designs systems that survive the team that built them. Every decision has a trade-off — name it.</p>
+        <a class="dl" href=".claude/agents/engineering-software-architect.md" download>Download .md</a>
+      </li>
+      <li class="card" data-team="engineering">
+        <div class="card-top"><span class="emoji" aria-hidden="true">🛤️</span><span class="team">Engineering</span></div>
+        <h3><a href="agent.html?a=engineering-platform-engineer">Platform Engineer</a></h3>
+        <p>The platform is the product. If developers can't self-serve it, you haven't finished building it.</p>
+        <a class="dl" href=".claude/agents/engineering-platform-engineer.md" download>Download .md</a>
+      </li>
+      <li class="card" data-team="design">
+        <div class="card-top"><span class="emoji" aria-hidden="true">🎨</span><span class="team">Design</span></div>
+        <h3><a href="agent.html?a=design-ui-designer">UI Designer</a></h3>
+        <p>Creates beautiful, consistent, accessible interfaces that feel just right.</p>
+        <a class="dl" href=".claude/agents/design-ui-designer.md" download>Download .md</a>
+      </li>
+      <li class="card" data-team="design">
+        <div class="card-top"><span class="emoji" aria-hidden="true">📐</span><span class="team">Design</span></div>
+        <h3><a href="agent.html?a=design-ux-architect">UX Architect</a></h3>
+        <p>Gives developers solid foundations, CSS systems, and clear implementation paths.</p>
+        <a class="dl" href=".claude/agents/design-ux-architect.md" download>Download .md</a>
+      </li>
+      <li class="card" data-team="design">
+        <div class="card-top"><span class="emoji" aria-hidden="true">🔬</span><span class="team">Design</span></div>
+        <h3><a href="agent.html?a=design-ux-researcher">UX Researcher</a></h3>
+        <p>Validates design decisions with real user data, not assumptions.</p>
+        <a class="dl" href=".claude/agents/design-ux-researcher.md" download>Download .md</a>
+      </li>
+      <li class="card" data-team="design">
+        <div class="card-top"><span class="emoji" aria-hidden="true">🧱</span><span class="team">Design</span></div>
+        <h3><a href="agent.html?a=design-ui-finish-gate-reviewer">UI Finish-Gate Reviewer</a></h3>
+        <p>Allergic to dashboards that could belong to literally any product.</p>
+        <a class="dl" href=".claude/agents/design-ui-finish-gate-reviewer.md" download>Download .md</a>
+      </li>
+      <li class="card" data-team="design">
+        <div class="card-top"><span class="emoji" aria-hidden="true">🎭</span><span class="team">Design</span></div>
+        <h3><a href="agent.html?a=design-persona-walkthrough">Persona Walkthrough Specialist</a></h3>
+        <p>I become your user so you can see what your analytics can't show you.</p>
+        <a class="dl" href=".claude/agents/design-persona-walkthrough.md" download>Download .md</a>
+      </li>
+      <li class="card" data-team="design">
+        <div class="card-top"><span class="emoji" aria-hidden="true">🎨</span><span class="team">Design</span></div>
+        <h3><a href="agent.html?a=design-brand-guardian">Brand Guardian</a></h3>
+        <p>Your brand's fiercest protector and most passionate advocate.</p>
+        <a class="dl" href=".claude/agents/design-brand-guardian.md" download>Download .md</a>
+      </li>
+      <li class="card" data-team="design">
+        <div class="card-top"><span class="emoji" aria-hidden="true">🎬</span><span class="team">Design</span></div>
+        <h3><a href="agent.html?a=design-visual-storyteller">Visual Storyteller</a></h3>
+        <p>Transforms complex information into visual narratives that move people.</p>
+        <a class="dl" href=".claude/agents/design-visual-storyteller.md" download>Download .md</a>
+      </li>
+      <li class="card" data-team="design">
+        <div class="card-top"><span class="emoji" aria-hidden="true">📷</span><span class="team">Design</span></div>
+        <h3><a href="agent.html?a=design-image-prompt-engineer">Image Prompt Engineer</a></h3>
+        <p>Translates visual concepts into precise prompts that produce stunning AI photography.</p>
+        <a class="dl" href=".claude/agents/design-image-prompt-engineer.md" download>Download .md</a>
+      </li>
+      <li class="card" data-team="design">
+        <div class="card-top"><span class="emoji" aria-hidden="true">🌈</span><span class="team">Design</span></div>
+        <h3><a href="agent.html?a=design-inclusive-visuals-specialist">Inclusive Visuals Specialist</a></h3>
+        <p>Defeats systemic AI biases to generate culturally accurate, affirming imagery.</p>
+        <a class="dl" href=".claude/agents/design-inclusive-visuals-specialist.md" download>Download .md</a>
+      </li>
+      <li class="card" data-team="design">
+        <div class="card-top"><span class="emoji" aria-hidden="true">✨</span><span class="team">Design</span></div>
+        <h3><a href="agent.html?a=design-whimsy-injector">Whimsy Injector</a></h3>
+        <p>Adds the unexpected moments of delight that make brands unforgettable.</p>
+        <a class="dl" href=".claude/agents/design-whimsy-injector.md" download>Download .md</a>
+      </li>
+    </ul>
+  </section>
+
+  <section id="install" class="wrap install" aria-labelledby="install-title">
+    <h2 id="install-title">Install the whole team</h2>
+    <p>Copies every agent into your user-level agents folder, so they're available in every Claude Code project. To install just one, open it and use its install command.</p>
+    <div class="cmd">
+      <pre id="cmd">mkdir -p ~/.claude/agents &amp;&amp; cd ~/.claude/agents &amp;&amp; for a in sales-proposal-strategist engineering-software-architect engineering-platform-engineer design-ui-designer design-ux-architect design-ux-researcher design-ui-finish-gate-reviewer design-persona-walkthrough design-brand-guardian design-visual-storyteller design-image-prompt-engineer design-inclusive-visuals-specialist design-whimsy-injector; do curl -fsSLO https://meik-cm.github.io/claude-agents/.claude/agents/$a.md; done</pre>
+      <button type="button" class="btn btn-small" data-copy="cmd">Copy</button>
+    </div>
+  </section>
+</main>
+
+<footer class="site-footer">
+  <div class="wrap footer-inner">
+    <span>Claude Agents</span>
+    <nav aria-label="Footer">
+      <a href="#agents">Agents</a>
+      <a href="agentic-ai-pitch/">Agentic AI pitch</a>
+      <a href="https://github.com/meik-cm/claude-agents">GitHub</a>
+    </nav>
+  </div>
+</footer>
+
 <script>
-  const FILE = ".claude/agents/sales-proposal-strategist.md";
-  const fileUrl = new URL(FILE, location.href).href;
-  const cmd = `mkdir -p ~/.claude/agents && curl -fsSL ${fileUrl} -o ~/.claude/agents/sales-proposal-strategist.md`;
-  document.getElementById("cmd").textContent = cmd;
-  document.getElementById("copy").addEventListener("click", async (e) => {
-    try { await navigator.clipboard.writeText(cmd); e.target.textContent = "Copied!"; }
-    catch { e.target.textContent = "Copy failed"; }
-    setTimeout(() => (e.target.textContent = "Copy install command"), 1500);
-  });
-
-  fetch(FILE).then(r => { if (!r.ok) throw new Error(r.status); return r.text(); }).then(md => {
-    const fm = md.match(/^---\n([\s\S]*?)\n---\n/);
-    if (fm) {
-      const vibe = fm[1].match(/^vibe:\s*(.+)$/m);
-      if (vibe) document.getElementById("vibe").textContent = vibe[1];
-      md = md.slice(fm[0].length);
-    }
-    const el = document.getElementById("content");
-    el.innerHTML = marked.parse(md);
-    el.querySelectorAll("table").forEach(t => {
-      const w = document.createElement("div"); w.className = "table-wrap";
-      t.replaceWith(w); w.appendChild(t);
+  document.querySelectorAll(".chip").forEach(chip => {
+    chip.addEventListener("click", () => {
+      const f = chip.dataset.filter;
+      document.querySelectorAll(".chip").forEach(c => c.setAttribute("aria-pressed", String(c === chip)));
+      document.querySelectorAll(".card").forEach(card => {
+        card.hidden = f !== "all" && card.dataset.team !== f;
+      });
     });
-  }).catch(err => {
-    document.getElementById("content").innerHTML =
-      `<p class="err">Couldn't load the agent file (${err.message}).</p>`;
+  });
+  document.querySelectorAll("[data-copy]").forEach(btn => {
+    btn.addEventListener("click", async () => {
+      const text = document.getElementById(btn.dataset.copy).textContent;
+      try { await navigator.clipboard.writeText(text); btn.textContent = "Copied"; }
+      catch { btn.textContent = "Copy failed"; }
+      setTimeout(() => (btn.textContent = "Copy"), 1500);
+    });
   });
 </script>
 </body>
