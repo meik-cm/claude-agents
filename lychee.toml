@@ -1,0 +1,15 @@
+# Link checker config for lychee (https://lychee.cli.rs)
+# Check internal #anchors as well as external links.
+include_fragments = "full"
+max_retries = 3
+timeout = 20
+accept = ["200..=299", "429"]
+
+# Safeguard: bare preconnect origins (<link rel="preconnect">) are not real
+# documents (fonts.gstatic.com 404s at its root). lychee 0.24 already skips
+# preconnect links, so this only matters if extraction behaviour changes.
+# The real stylesheet URL on fonts.googleapis.com/css2 is still checked.
+exclude = [
+  '^https://fonts\.gstatic\.com/?$',
+  '^https://fonts\.googleapis\.com/?$',
+]

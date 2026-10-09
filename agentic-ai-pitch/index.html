@@ -1,0 +1,558 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Agentic AI Agents</title>
+<meta name="description" content="Agentic AI agents that complete routine workflows end to end inside your systems, within limits you set. Proven on your data in a 30-day pilot before you commit.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    color-scheme: light;
+    --bg: #f3f1ea;
+    --surface: #ffffff;
+    --surface-2: #f8f7f2;
+    --ink: #16181d;
+    --muted: #535861;
+    --line: #e1ded3;
+    --line-strong: #c9c5b8;
+    --accent: #1d5a4a;
+    --accent-ink: #ffffff;
+    --accent-soft: #e5efe9;
+    --accent-line: #b9d4c8;
+    --warm: #8a4a12;
+    --warm-soft: #fbf1e1;
+    --hero-bg: #0f2a23;
+    --hero-ink: #eef3ef;
+    --hero-muted: #b7c9c1;
+    --hero-accent: #9fdcc2;
+    --hero-line: rgba(255,255,255,.14);
+    --focus: #c2410c;
+    --shadow: 0 1px 2px rgba(22,24,29,.04), 0 8px 24px -12px rgba(22,24,29,.12);
+    --font-display: "Fraunces", Georgia, "Times New Roman", serif;
+    --font-sans: "IBM Plex Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+    --font-mono: "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+    --radius: 10px;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      color-scheme: dark;
+      --bg: #0e1012;
+      --surface: #16191c;
+      --surface-2: #1b1f22;
+      --ink: #ecebe5;
+      --muted: #a7acb3;
+      --line: #2a2f33;
+      --line-strong: #3a4045;
+      --accent: #8fd1b6;
+      --accent-ink: #0b1a16;
+      --accent-soft: #18292a;
+      --accent-line: #2f4c44;
+      --warm: #f0b874;
+      --warm-soft: #2a2117;
+      --hero-bg: #0a1b17;
+      --hero-ink: #eef3ef;
+      --hero-muted: #a9bdb4;
+      --hero-accent: #9fdcc2;
+      --hero-line: rgba(255,255,255,.12);
+      --focus: #fdba74;
+      --shadow: 0 1px 2px rgba(0,0,0,.3), 0 10px 28px -14px rgba(0,0,0,.6);
+    }
+  }
+  :root[data-theme="dark"] {
+    color-scheme: dark;
+    --bg: #0e1012;
+    --surface: #16191c;
+    --surface-2: #1b1f22;
+    --ink: #ecebe5;
+    --muted: #a7acb3;
+    --line: #2a2f33;
+    --line-strong: #3a4045;
+    --accent: #8fd1b6;
+    --accent-ink: #0b1a16;
+    --accent-soft: #18292a;
+    --accent-line: #2f4c44;
+    --warm: #f0b874;
+    --warm-soft: #2a2117;
+    --hero-bg: #0a1b17;
+    --hero-ink: #eef3ef;
+    --hero-muted: #a9bdb4;
+    --hero-accent: #9fdcc2;
+    --hero-line: rgba(255,255,255,.12);
+    --focus: #fdba74;
+    --shadow: 0 1px 2px rgba(0,0,0,.3), 0 10px 28px -14px rgba(0,0,0,.6);
+  }
+
+  *, *::before, *::after { box-sizing: border-box; }
+  html, body { margin: 0; }
+  html { -webkit-text-size-adjust: 100%; scroll-behavior: smooth; }
+  body {
+    background: var(--bg);
+    color: var(--ink);
+    font: 400 15px/1.55 var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+  }
+  a { color: var(--accent); }
+  :focus-visible { outline: 3px solid var(--focus); outline-offset: 3px; border-radius: 4px; }
+  .skip {
+    position: absolute; left: 16px; top: -60px;
+    background: var(--surface); color: var(--ink);
+    padding: 8px 12px; border-radius: 6px; z-index: 10;
+  }
+  .skip:focus { top: 12px; }
+
+  .wrap { max-width: 1040px; margin: 0 auto; padding: 0 32px; }
+
+  /* ---------- Hero ---------- */
+  .hero {
+    background:
+      radial-gradient(1200px 400px at 85% -10%, rgba(159,220,194,.16), transparent 60%),
+      linear-gradient(180deg, var(--hero-bg), var(--hero-bg));
+    color: var(--hero-ink);
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::after {
+    content: "";
+    position: absolute; inset: 0;
+    background-image:
+      linear-gradient(var(--hero-line) 1px, transparent 1px),
+      linear-gradient(90deg, var(--hero-line) 1px, transparent 1px);
+    background-size: 48px 48px;
+    mask-image: linear-gradient(115deg, transparent 45%, #000 100%);
+    -webkit-mask-image: linear-gradient(115deg, transparent 45%, #000 100%);
+    opacity: .5;
+    pointer-events: none;
+  }
+  .hero .wrap { position: relative; z-index: 1; padding-top: 72px; padding-bottom: 64px; }
+  .eyebrow {
+    display: inline-flex; align-items: center; gap: 10px;
+    font: 500 12px/1 var(--font-mono);
+    letter-spacing: .12em; text-transform: uppercase;
+    color: var(--hero-accent);
+    margin: 0 0 22px;
+  }
+  .eyebrow::before {
+    content: ""; width: 8px; height: 8px; border-radius: 50%;
+    background: var(--hero-accent);
+    box-shadow: 0 0 0 4px rgba(159,220,194,.18);
+  }
+  h1 {
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: clamp(34px, 5.4vw, 58px);
+    line-height: 1.04;
+    letter-spacing: -0.02em;
+    margin: 0 0 22px;
+    max-width: 16ch;
+    font-variation-settings: "opsz" 144;
+  }
+  h1 em { font-style: italic; font-weight: 500; color: var(--hero-accent); }
+  .lead {
+    font-size: 17.5px;
+    line-height: 1.6;
+    color: var(--hero-muted);
+    max-width: 60ch;
+    margin: 0 0 32px;
+  }
+  .lead strong { display: block; color: var(--hero-ink); font-weight: 600; font-size: 19px; margin-bottom: 8px; }
+  .hero-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 14px 22px; }
+  .hero .btn { background: var(--hero-accent); color: #0b1a16; }
+  .hero .btn:hover { background: #b9e8d4; }
+  .hero-note { font-size: 13.5px; color: var(--hero-muted); }
+
+  .btn {
+    display: inline-flex; align-items: center; gap: 10px;
+    min-height: 48px;
+    padding: 12px 22px;
+    border-radius: 999px;
+    background: var(--accent);
+    color: var(--accent-ink);
+    font: 600 15.5px/1.2 var(--font-sans);
+    text-decoration: none;
+    transition: transform .15s ease, background-color .15s ease, box-shadow .15s ease;
+    box-shadow: 0 6px 18px -8px rgba(0,0,0,.45);
+  }
+  .btn:hover { transform: translateY(-1px); }
+  .btn svg { width: 18px; height: 18px; flex: none; }
+
+  /* ---------- Sections ---------- */
+  main { padding: 56px 0 72px; }
+  section { margin: 0 0 56px; }
+  .sec-head { display: flex; align-items: baseline; gap: 14px; margin: 0 0 18px; }
+  .sec-num {
+    font: 500 12.5px/1 var(--font-mono);
+    color: var(--accent);
+    letter-spacing: .06em;
+    padding: 6px 8px;
+    border: 1px solid var(--accent-line);
+    border-radius: 6px;
+    background: var(--accent-soft);
+    flex: none;
+    transform: translateY(-4px);
+  }
+  h2 {
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: clamp(22px, 2.6vw, 28px);
+    line-height: 1.2;
+    letter-spacing: -0.01em;
+    margin: 0;
+    font-variation-settings: "opsz" 72;
+  }
+  p { margin: 0 0 12px; }
+  ul, ol { margin: 0 0 12px; padding: 0; list-style: none; }
+
+  .after-grid { margin-top: 56px; }
+  .two-up { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+  .card {
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    padding: 28px;
+    box-shadow: var(--shadow);
+    display: flex; flex-direction: column;
+  }
+  .card .sec-head { margin-bottom: 14px; }
+  .card h2 { font-size: 22px; }
+  .icon {
+    width: 40px; height: 40px; border-radius: 10px;
+    display: grid; place-items: center;
+    background: var(--accent-soft); color: var(--accent);
+    margin-bottom: 18px;
+  }
+  .icon svg { width: 22px; height: 22px; }
+  .intro { color: var(--muted); }
+
+  .pain li {
+    position: relative; padding: 10px 0 10px 28px;
+    border-top: 1px solid var(--line);
+  }
+  .pain li:last-child { border-bottom: 1px solid var(--line); }
+  .pain li::before {
+    content: ""; position: absolute; left: 4px; top: 19px;
+    width: 10px; height: 2px; background: var(--warm);
+  }
+
+  .steps { counter-reset: step; }
+  .steps li {
+    counter-increment: step;
+    position: relative;
+    padding: 9px 0 9px 44px;
+    min-height: 40px;
+  }
+  .steps li::before {
+    content: counter(step);
+    position: absolute; left: 0; top: 7px;
+    width: 28px; height: 28px; border-radius: 50%;
+    display: grid; place-items: center;
+    font: 600 13px/1 var(--font-mono);
+    color: var(--accent-ink); background: var(--accent);
+  }
+  .steps li:not(:last-child)::after {
+    content: ""; position: absolute; left: 13.5px; top: 37px; bottom: -7px;
+    width: 1px; background: var(--accent-line);
+  }
+
+  .math {
+    margin: auto 0 0;
+    margin-top: 18px;
+    background: var(--warm-soft);
+    border: 1px dashed color-mix(in srgb, var(--warm) 45%, transparent);
+    border-radius: 8px;
+    padding: 14px 16px;
+    font-size: 14.5px;
+  }
+  .math b { display: block; font: 500 11.5px/1 var(--font-mono); letter-spacing: .1em; text-transform: uppercase; color: var(--warm); margin-bottom: 8px; }
+  .ph {
+    font: 500 13px/1.3 var(--font-mono);
+    color: var(--warm);
+    background: color-mix(in srgb, var(--warm) 10%, transparent);
+    border-radius: 4px;
+    padding: 1px 5px;
+    white-space: nowrap;
+  }
+  .muted { color: var(--muted); font-size: 14px; }
+  .fit {
+    margin: auto 0 0; padding-top: 16px; margin-top: 14px;
+    border-top: 1px solid var(--line);
+  }
+  .fit b { color: var(--ink); font-weight: 600; }
+
+  /* ---------- Comparison table ---------- */
+  .table-card { padding: 0; overflow: hidden; }
+  table { width: 100%; border-collapse: collapse; font-size: 15px; }
+  th, td { text-align: left; padding: 16px 22px; vertical-align: top; }
+  thead th {
+    font: 500 11.5px/1 var(--font-mono);
+    letter-spacing: .1em; text-transform: uppercase;
+    color: var(--muted);
+    background: var(--surface-2);
+    border-bottom: 1px solid var(--line);
+    padding-top: 14px; padding-bottom: 14px;
+  }
+  tbody tr + tr td { border-top: 1px solid var(--line); }
+  .compare td:first-child { font-weight: 600; width: 28%; }
+  .compare td:last-child { color: var(--muted); }
+  .compare tr.us td { background: var(--accent-soft); color: var(--ink); font-weight: 600; }
+  .compare tr.us td:first-child { box-shadow: inset 4px 0 0 var(--accent); color: var(--accent); }
+  .tag {
+    display: inline-block; margin-left: 8px;
+    font: 500 10.5px/1 var(--font-mono); letter-spacing: .08em; text-transform: uppercase;
+    padding: 4px 6px; border-radius: 4px;
+    background: var(--accent); color: var(--accent-ink);
+    vertical-align: 2px;
+  }
+
+  /* ---------- FAQ ---------- */
+  .faq { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .faq li {
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    padding: 20px 22px;
+    color: var(--muted);
+  }
+  .faq strong {
+    display: block; color: var(--ink);
+    font-family: var(--font-display); font-weight: 600; font-size: 18px; line-height: 1.3;
+    margin-bottom: 6px;
+  }
+
+  /* ---------- Pilot timeline ---------- */
+  .pilot { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: 28px; box-shadow: var(--shadow); }
+  .timeline thead { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
+  .timeline tbody { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0; position: relative; }
+  .timeline tr { display: flex; flex-direction: column; gap: 10px; position: relative; padding: 0 18px 0 0; }
+  .timeline tbody tr + tr td { border-top: 0; }
+  .timeline td { padding: 0; }
+  .timeline td:first-child {
+    display: flex; align-items: center; gap: 12px;
+    font: 500 12px/1 var(--font-mono); letter-spacing: .1em; text-transform: uppercase; color: var(--accent);
+  }
+  .timeline td:first-child::before {
+    content: ""; width: 14px; height: 14px; border-radius: 50%; flex: none;
+    background: var(--surface); border: 3px solid var(--accent);
+  }
+  .timeline td:first-child::after { content: ""; flex: 1; height: 2px; background: var(--accent-line); }
+  .timeline tr:last-child td:first-child::after { background: linear-gradient(90deg, var(--accent-line), transparent); }
+  .timeline td:last-child { font-size: 15px; padding-right: 8px; }
+
+  .targets { margin-top: 26px; padding-top: 20px; border-top: 1px solid var(--line); }
+  .targets p { margin: 0; }
+
+  /* ---------- CTA ---------- */
+  .cta {
+    background: var(--accent-soft);
+    border: 1px solid var(--accent-line);
+    border-radius: 14px;
+    padding: 36px 36px;
+    display: grid; grid-template-columns: 1fr auto; gap: 20px 36px; align-items: center;
+  }
+  .cta .sec-head { margin-bottom: 10px; }
+  .cta p { margin: 0; font-size: 16.5px; max-width: 54ch; }
+  .cta p strong { font-family: var(--font-display); font-weight: 600; font-size: 21px; display: block; margin-bottom: 4px; }
+
+  footer { padding: 0 0 40px; }
+  footer .wrap { border-top: 1px solid var(--line); padding-top: 20px; color: var(--muted); font-size: 13px; }
+
+  /* ---------- Responsive ---------- */
+  @media (max-width: 820px) {
+    .two-up, .faq { grid-template-columns: 1fr; }
+    .timeline tbody { grid-template-columns: 1fr; gap: 0; }
+    .timeline tr { padding: 0 0 22px 30px; }
+    .timeline tr:last-child { padding-bottom: 0; }
+    .timeline td:first-child { margin-left: -30px; }
+    .timeline td:first-child::after { display: none; }
+    .timeline tr:not(:last-child)::before {
+      content: ""; position: absolute; left: 6px; top: 16px; bottom: 0; width: 2px; background: var(--accent-line);
+    }
+    .cta { grid-template-columns: 1fr; }
+  }
+  @media (max-width: 640px) {
+    body { font-size: 15px; }
+    .wrap { padding: 0 16px; }
+    .hero .wrap { padding-top: 48px; padding-bottom: 44px; }
+    .lead { font-size: 16px; }
+    .lead strong { font-size: 17.5px; }
+    main { padding: 36px 0 48px; }
+    section { margin-bottom: 40px; }
+    .card, .pilot { padding: 22px 18px; }
+    .cta { padding: 26px 18px; }
+    .btn { width: 100%; justify-content: center; }
+    .compare thead { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
+    .compare, .compare tbody, .compare tr, .compare td { display: block; width: 100%; }
+    .compare tr { padding: 16px 18px; }
+    .compare tbody tr + tr { border-top: 1px solid var(--line); }
+    .compare tbody tr + tr td { border-top: 0; }
+    .compare td { padding: 3px 0; }
+    .compare td:first-child { width: 100%; font-size: 16px; margin-bottom: 4px; }
+    .compare td[data-label]:not(:first-child)::before {
+      content: attr(data-label);
+      display: block;
+      font: 500 10.5px/1.4 var(--font-mono); letter-spacing: .1em; text-transform: uppercase;
+      color: var(--muted); margin-top: 6px;
+    }
+    .compare tr.us { background: var(--accent-soft); box-shadow: inset 4px 0 0 var(--accent); }
+    .compare tr.us td, .compare tr.us td:first-child { background: transparent; box-shadow: none; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    *, *::before, *::after { transition: none !important; animation: none !important; }
+    .btn:hover { transform: none; }
+  }
+
+  /* ---------- Print ---------- */
+  @page { size: auto; margin: 12mm; }
+  @media print {
+    :root, :root[data-theme="dark"] {
+      --bg: #fff; --surface: #fff; --surface-2: #f4f4f1; --ink: #111; --muted: #444;
+      --line: #d6d4cc; --accent: #1d5a4a; --accent-ink: #fff; --accent-soft: #eef4f0; --accent-line: #c3d8ce;
+      --warm: #7a3f0c; --warm-soft: #fbf4e8; --shadow: none;
+      --hero-bg: #fff; --hero-ink: #111; --hero-muted: #333; --hero-accent: #1d5a4a;
+    }
+    body { font-size: 11pt; line-height: 1.4; background: #fff; color: #111; }
+    * { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    .skip, .hero-actions, .cta .btn { display: none !important; }
+    .wrap { max-width: none; padding: 0; }
+    .hero { background: none; border-bottom: 2px solid var(--accent); }
+    .hero::after { display: none; }
+    .hero .wrap { padding: 0 0 12px; }
+    .eyebrow { margin-bottom: 8px; }
+    .eyebrow::before { box-shadow: none; }
+    h1 { font-size: 24pt; max-width: none; margin-bottom: 8px; }
+    .lead { font-size: 11pt; margin: 0; max-width: none; }
+    .lead strong { font-size: 12pt; }
+    main { padding: 14px 0 0; }
+    section { margin-bottom: 14px; break-inside: avoid; }
+    h2 { font-size: 14pt; }
+    .card .sec-head, .sec-head { margin-bottom: 8px; }
+    .card h2 { font-size: 13pt; }
+    .two-up { gap: 14px; }
+    .card, .pilot, .faq li { padding: 12px 14px; box-shadow: none; break-inside: avoid; }
+    .icon { display: none; }
+    .faq { gap: 8px; }
+    .faq strong { font-size: 11.5pt; }
+    th, td { padding: 7px 12px; }
+    .timeline td:last-child { font-size: 10.5pt; }
+    .targets { margin-top: 12px; padding-top: 10px; }
+    .cta { padding: 12px 14px; display: block; break-inside: avoid; }
+    .cta p strong { font-size: 13pt; }
+    footer { display: none; }
+  }
+</style>
+</head>
+<body>
+<a class="skip" href="#content">Skip to content</a>
+
+<header class="hero">
+  <div class="wrap">
+    <p class="eyebrow">Agentic AI &middot; 30-day pilot</p>
+    <h1>Agentic AI Agents: <em>Finished Work, Under Your Rules</em></h1>
+    <p class="lead"><strong>Your workload keeps growing. Your headcount and error rate don't have to.</strong> An agentic AI agent completes routine workflows end to end inside your systems, within limits you set. We prove it on your data before you commit.</p>
+    <div class="hero-actions">
+      <a class="btn" href="#next-step">Book a 30-minute call
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+      </a>
+      <span class="hero-note">The 30-day pilot: proof before commitment</span>
+    </div>
+  </div>
+</header>
+
+<main id="content">
+  <div class="wrap">
+
+    <div class="two-up">
+      <section class="card" aria-labelledby="h-cost">
+        <div class="icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="13" r="8"/><path d="M12 9v4l2.5 2.5M9 2h6"/></svg>
+        </div>
+        <div class="sec-head"><span class="sec-num">01</span><h2 id="h-cost">What manual work costs you today</h2></div>
+        <p class="intro">Skilled people spend hours each week moving data between tools. It never shows up on a dashboard, but you pay for it.</p>
+        <ul class="pain">
+          <li>Work waits in queues: tickets, approvals, reconciliations, follow-ups</li>
+          <li>More volume means more hiring, so margins shrink as you grow</li>
+          <li>Every manual hand-off risks an error a customer or auditor finds first</li>
+        </ul>
+        <p class="math"><b>Do the math</b><span class="ph">[hours per week]</span> x <span class="ph">[people]</span> x <span class="ph">[loaded hourly cost]</span> = the cost of standing still.</p>
+      </section>
+
+      <section class="card" aria-labelledby="h-how">
+        <div class="icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="5" cy="6" r="2.2"/><circle cx="19" cy="18" r="2.2"/><path d="M7.2 6H14a3 3 0 0 1 0 6h-4a3 3 0 0 0 0 6h6.8"/></svg>
+        </div>
+        <div class="sec-head"><span class="sec-num">02</span><h2 id="h-how">How the agent closes the gap</h2></div>
+        <p class="intro">Give it a goal, not a prompt. It works like a trained team member.</p>
+        <ol class="steps">
+          <li>Applies your business rules to the request</li>
+          <li>Plans the steps and acts in your tools: CRM, ERP, email, ticketing, spreadsheets</li>
+          <li>Checks its own work and retries when a step fails</li>
+          <li>Hands approvals and anything unusual to a person</li>
+        </ol>
+        <p class="muted fit"><b>Good first workflows:</b> tier-1 tickets, invoice-to-PO matching, delayed-order rerouting, new-hire setup.</p>
+      </section>
+    </div>
+
+    <section class="after-grid" aria-labelledby="h-why">
+      <div class="sec-head"><span class="sec-num">03</span><h2 id="h-why">Why not a chatbot, copilot or RPA?</h2></div>
+      <div class="card table-card">
+        <table class="compare">
+          <thead><tr><th scope="col">Option</th><th scope="col">What it does</th><th scope="col">Where it stops</th></tr></thead>
+          <tbody>
+            <tr><td>Chatbot or copilot</td><td data-label="What it does">Answers and drafts</td><td data-label="Where it stops">A person still does every step</td></tr>
+            <tr><td>RPA bot</td><td data-label="What it does">Repeats fixed clicks</td><td data-label="Where it stops">Breaks when a screen or rule changes</td></tr>
+            <tr class="us"><td>Agentic AI agent</td><td data-label="What it does">Finishes the workflow</td><td data-label="Where it stops">Escalates exceptions to your people</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section aria-labelledby="h-faq">
+      <div class="sec-head"><span class="sec-num">04</span><h2 id="h-faq">Your questions, answered</h2></div>
+      <ul class="faq">
+        <li><strong>What if it gets something wrong?</strong> A person approves every action at first. It earns autonomy only where results justify it.</li>
+        <li><strong>Who is in control?</strong> You are: role-based permissions, approval gates for sensitive actions, a full audit log of every step.</li>
+        <li><strong>Is our data safe?</strong> The agent sees only what its role allows. Your data never trains shared models.</li>
+        <li><strong>Will it pay off?</strong> We agree on targets up front, baseline your numbers in week 1, and price on work completed, not messages sent.</li>
+      </ul>
+    </section>
+
+    <section aria-labelledby="h-pilot">
+      <div class="sec-head"><span class="sec-num">05</span><h2 id="h-pilot">The 30-day pilot: proof before commitment</h2></div>
+      <div class="pilot">
+        <table class="timeline">
+          <thead><tr><th scope="col">Week</th><th scope="col">What happens</th></tr></thead>
+          <tbody>
+            <tr><td><span>Week 1</span></td><td>Pick one high-volume workflow, connect systems, baseline metrics</td></tr>
+            <tr><td><span>Week 2&ndash;3</span></td><td>Agent runs live; a person approves each action</td></tr>
+            <tr><td><span>Week 4</span></td><td>Review results against targets; you decide on rollout</td></tr>
+          </tbody>
+        </table>
+        <div class="targets">
+          <p class="muted">Pilot targets, set with you: <span class="ph">[X]%</span> faster cycle time, <span class="ph">[X]</span> hours freed per person per month, <span class="ph">[X]%</span> fewer hand-off errors.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="cta" id="next-step" aria-labelledby="h-next">
+      <div>
+        <div class="sec-head"><span class="sec-num">06</span><h2 id="h-next">Next step</h2></div>
+        <p><strong>Book a 30-minute call.</strong> Bring the workflow your team dreads most. We will tell you plainly whether it fits a pilot.</p>
+      </div>
+      <a class="btn" href="#">Book a 30-minute call
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg>
+      </a>
+    </section>
+
+  </div>
+</main>
+
+<footer>
+  <div class="wrap">Agentic AI Agents: Finished Work, Under Your Rules</div>
+</footer>
+</body>
+</html>
